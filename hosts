@@ -1,5 +1,5 @@
 [aws]
-ubuntu ansible_host=18.130.213.9
+ubuntu ansible_host=18.130.213.187
 
 
 [aws:vars]

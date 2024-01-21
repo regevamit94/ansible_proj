@@ -1,0 +1,24 @@
+---
+- name: Install nginx Web Server
+  hosts: all
+  become: yes
+  
+  vars:
+    file_source: /home/ec2-user/helm_project/nginx-volume/
+    file_destination: /usr/share/nginx/html
+
+  tasks:
+  - name: update
+    apt:
+      upgrade: yes
+
+  - name: Install nginx
+    apt: name=nginx  state=latest
+
+  - name: Insert html file
+    copy: src={{ file_source }}   dest={{ file_destination }}  mode=0555
+    notify: Restart nginx svc
+
+  handlers:
+  - name: Restart nginx svc
+    service:  name=nginx  state=restarted
